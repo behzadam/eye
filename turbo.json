@@ -2,20 +2,22 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+    "format": {
+      "inputs": [],
+      "outputs": []
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "inputs": [],
+      "outputs": []
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "test": {
+      "inputs": [],
+      "outputs": []
     },
-    "dev": {
-      "cache": false,
-      "persistent": true
+    "build": {
+      "inputs": [],
+      "outputs": [],
+      "dependsOn": ["^build"]
     }
   }
 }
