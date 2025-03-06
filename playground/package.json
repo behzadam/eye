@@ -1,10 +1,16 @@
 {
   "name": "@eye/playground",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "A Playground for Eye SDK",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:behzadam/eye.git",
+    "directory": "playground"
+  },
+  "sideEffects": false,
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite"
   },
   "keywords": [],
