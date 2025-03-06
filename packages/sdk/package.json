@@ -1,13 +1,22 @@
 {
   "name": "@eye/sdk",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Eye SDK for web applications",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
-  "keywords": [],
+  "keywords": [
+    "eye",
+    "sdk"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {

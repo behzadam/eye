@@ -3,20 +3,17 @@
   "type": "module",
   "version": "0.0.0",
   "description": "A Playground for Eye SDK",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com:behzadam/eye.git",
-    "directory": "playground"
-  },
-  "sideEffects": false,
   "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@eye/sdk": "workspace:*",
     "typescript": "5.8.2",
     "vite": "^6.2.0"
   },
