@@ -1,1 +1,2 @@
-console.log("Hello SDK");
+export { Eye } from "./eye";
+export type { EyeConfig } from "./types";
