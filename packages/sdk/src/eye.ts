@@ -2,7 +2,6 @@ import { EventManager } from "./managers/event-manager";
 import { EyeConfig } from "./types";
 import { Logger } from "./utils/logger";
 import { generateUUID } from "./utils/uuid";
-import { validateConfig } from "./utils/validate";
 
 export class Eye {
   private readonly config: EyeConfig;
@@ -11,7 +10,7 @@ export class Eye {
   private readonly eventManager: EventManager;
 
   constructor(config: EyeConfig) {
-    validateConfig(config);
+    this.validateConfig(config);
     this.config = config;
     this.sessionId = generateUUID();
     this.logger = new Logger(config.options?.debug);
@@ -31,6 +30,25 @@ export class Eye {
    */
   static init(config: EyeConfig): Eye {
     return new Eye(config);
+  }
+
+  /**
+   * Validate the configuration object
+   */
+  private validateConfig(config: EyeConfig): void {
+    if (!config.projectId) {
+      throw new Error("Project ID is required");
+    }
+
+    if (!config.endpoint) {
+      throw new Error("Endpoint URL is required");
+    }
+
+    try {
+      new URL(config.endpoint);
+    } catch {
+      throw new Error("Invalid endpoint URL");
+    }
   }
 
   /**
@@ -75,8 +93,7 @@ export class Eye {
   }
 
   private send(payload: any): void {
-    const endpoint = `${this.config.endpoint}/collect`;
-
+    const endpoint = this.config.endpoint;
     // Add common properties
     const finalPayload = {
       ...payload,
