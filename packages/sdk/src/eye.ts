@@ -1,3 +1,4 @@
+import { EventManager } from "./managers/event-manager";
 import { EyeConfig } from "./types";
 import { Logger } from "./utils/logger";
 import { generateUUID } from "./utils/uuid";
@@ -7,6 +8,7 @@ export class Eye {
   private readonly config: EyeConfig;
   private readonly sessionId: string;
   private readonly logger: Logger;
+  private readonly eventManager: EventManager;
 
   constructor(config: EyeConfig) {
     validateConfig(config);
@@ -16,9 +18,11 @@ export class Eye {
 
     this.logger.info("Initialized with config:", config);
 
+    // Initialize event manager
+    this.eventManager = new EventManager(this, config.options?.debug);
+
     if (!config.options?.disableAutoPageview) {
       this.pageView();
-      this.setupPageViewListeners();
     }
   }
 
@@ -27,15 +31,6 @@ export class Eye {
    */
   static init(config: EyeConfig): Eye {
     return new Eye(config);
-  }
-
-  private setupPageViewListeners(): void {
-    this.logger.info("Setting up page view listeners");
-
-    // Listen for route changes in SPAs
-    window.addEventListener("popstate", () => {
-      this.pageView();
-    });
   }
 
   /**
@@ -69,6 +64,14 @@ export class Eye {
 
     this.logger.info("Tracking event:", payload);
     this.send(payload);
+  }
+
+  /**
+   * Clean up resources
+   */
+  destroy(): void {
+    this.logger.info("Cleaning up Eye instance");
+    this.eventManager.destroy();
   }
 
   private send(payload: any): void {

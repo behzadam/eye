@@ -26,14 +26,7 @@ console.info = function (...args) {
   }
 };
 
-// Add event listeners
-document.getElementById("trackEvent")?.addEventListener("click", () => {
-  analytics.track("button_click", {
-    buttonId: "trackEvent",
-    timestamp: new Date().toISOString(),
-  });
-});
-
-document.getElementById("trackPageView")?.addEventListener("click", () => {
-  analytics.pageView("/manual-pageview");
+// Clean up when the page is unloaded
+window.addEventListener("unload", () => {
+  analytics.destroy();
 });
