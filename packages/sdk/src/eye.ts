@@ -7,7 +7,7 @@ export class Eye {
   private readonly config: EyeConfig;
   private readonly sessionId: string;
   private readonly logger: Logger;
-  private readonly eventManager: EventManager;
+  private readonly eventManager?: EventManager;
 
   constructor(config: EyeConfig) {
     this.validateConfig(config);
@@ -17,10 +17,12 @@ export class Eye {
 
     this.logger.info("Initialized with config:", config);
 
-    // Initialize event manager
-    this.eventManager = new EventManager(this, config.options?.debug);
+    if (config.options?.autoSnapshot) {
+      // Initialize event manager
+      this.eventManager = new EventManager(this, config.options?.debug);
+    }
 
-    if (!config.options?.disableAutoPageview) {
+    if (!config.options?.autoPageview) {
       this.pageView();
     }
   }
@@ -89,7 +91,7 @@ export class Eye {
    */
   destroy(): void {
     this.logger.info("Cleaning up Eye instance");
-    this.eventManager.destroy();
+    this.eventManager?.destroy();
   }
 
   private send(payload: any): void {

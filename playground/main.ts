@@ -6,7 +6,8 @@ const analytics = Eye.init({
   endpoint: "https://analytics.example.com", // Replace with your actual endpoint
   options: {
     debug: true,
-    disableAutoPageview: false,
+    autoPageview: false,
+    autoSnapshot: true,
   },
 });
 

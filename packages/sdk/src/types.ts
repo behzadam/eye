@@ -17,7 +17,13 @@ export interface EyeConfig {
      * Disable automatic page view tracking
      * @default false
      */
-    disableAutoPageview?: boolean;
+    autoPageview?: boolean;
+
+    /**
+     * Disable automatic snapshot tracking
+     * @default false
+     */
+    autoSnapshot?: boolean;
 
     /**
      * Debug mode - logs all tracking events to console
